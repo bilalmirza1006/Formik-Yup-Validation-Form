@@ -1,95 +1,230 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+'use client';
+
+import { Box, Button, Input, TextField } from '@mui/material'
+import { Field, Form, Formik, useFormik } from 'formik'
+import { SignUpValidation } from './SignUpValidation';
+
+const initialValues = {
+  firstName: '',
+  lasteName: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+
+}
+
 
 export default function Home() {
+
+  const { values, handleBlur, handleChange, handleSubmit, errors } = useFormik({
+    initialValues: initialValues,
+    validationSchema: SignUpValidation,
+    onSubmit: (value) => {
+      console.log(value)
+    }
+  })
+
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <Box sx={{
+      height: '100vh',
+      width: '100%',
+      background: 'white',
+      color: 'black',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+    }}>
+      <Formik initialValues={initialValues}
+        validationSchema={SignUpValidation}>
+        {({ errors }) => (
+          <Form >
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+            <Box sx={{ margin: '30px', display: 'flex', flexDirection: 'column' }}>
+              <Field type="text" name="firstName"></Field>
+              {/* <TextField
+                id="outlined-basic"
+                label="First Name"
+                values={values.firstName}
+                name='firsName'
+                variant="outlined"
+                onBlur={handleBlur}
+                onChange={handleChange} /> */}
+              {errors.firstName && <small>{errors.firstName}</small>}
+            </Box>
+            <Box sx={{ margin: '30px', display: 'flex', flexDirection: 'column' }}>
+              <Field type="text" name="lasteName"></Field>
+              {/* <TextField
+                id="outlined-basic"
+                label="Last Nmae"
+                values={values.lasteName}
+                name='lasteName'
+                variant="outlined"
+                onBlur={handleBlur}
+                onChange={handleChange} /> */}
+              {errors.lasteName && <small>{errors.lasteName}</small>}
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+            </Box>
+            <Box sx={{ margin: '30px', display: 'flex', flexDirection: 'column' }}>
+              <Field type="text" name="email"></Field>
+              {/* <TextField
+                id="outlined-basic"
+                label="Email"
+                values={values.email}
+                name='email'
+                variant="outlined"
+                onBlur={handleBlur}
+                onChange={handleChange} /> */}
+              {errors.email && <small>{errors.email}</small>}
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
+            </Box>
+            <Box sx={{ margin: '30px', display: 'flex', flexDirection: 'column' }}>
+              <Field type="text" name="password"></Field>
+              {/* <TextField
+                id="outlined-basic"
+                label="Password"
+                values={values.password}
+                name='password'
+                variant="outlined"
+                onBlur={handleBlur}
+                onChange={handleChange} /> */}
+              {errors.password && <small>{errors.password}</small>}
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+            </Box>
+            <Box sx={{ margin: '30px', display: 'flex', flexDirection: 'column' }}>
+              <Field type="text" name="confirmPassword"></Field>
+              {/* <TextField
+                id="outlined-basic"
+                label="ConfirmPassword"
+                values={values.confirmPassword}
+                name='confirmPassword'
+                variant="outlined"
+                onBlur={handleBlur}
+                onChange={handleChange} /> */}
+              {errors.confirmPassword && <small>{errors.confirmPassword}</small>}
+
+            </Box>
+            <Box sx={{ margin: '30px', display: 'flex', flexDirection: 'column' }}>
+              <Button variant="contained" type='submit'>Text</Button>
+            </Box>
+
+          </Form >
+        )}
+        {/* <Form></Form> */}
+
+      </Formik>
+
+    </Box>
   )
 }
+
+
+// 'use client';
+
+// import { Box, Button, Input, TextField } from '@mui/material'
+// import { Form, useFormik } from 'formik'
+// import { SignUpValidation } from './SignUpValidation';
+
+// const initialValues = {
+//   firstName: '',
+//   lasteName: '',
+//   email: '',
+//   password: '',
+//   confirmPassword: '',
+
+// }
+
+
+// export default function Home() {
+//   const { values, handleBlur, handleChange, handleSubmit, errors } = useFormik({
+//     initialValues: initialValues,
+//     validationSchema: SignUpValidation,
+//     onSubmit: (value) => {
+//       console.log(value)
+//     }
+//   })
+//   // console.log("hallo", formik);
+//   return (
+//     <Box sx={{
+//       height: '100vh',
+//       width: '100%',
+//       background: 'white',
+//       color: 'black',
+//       display: 'flex',
+//       flexDirection: 'column',
+//       justifyContent: 'center',
+//       alignItems: 'center',
+
+//     }}>
+//       {/* <Form></Form> */}
+//       <form onSubmit={handleSubmit}>
+
+//         <Box sx={{ margin: '30px', display: 'flex', flexDirection: 'column' }}>
+//           <TextField
+//             id="outlined-basic"
+//             label="First Name"
+//             values={values.firstName}
+//             name='firsName'
+//             variant="outlined"
+//             onBlur={handleBlur}
+//             onChange={handleChange} />
+//           {errors.firstName && <small>{errors.firstName}</small>}
+//         </Box>
+//         <Box sx={{ margin: '30px', display: 'flex', flexDirection: 'column' }}>
+//           <TextField
+//             id="outlined-basic"
+//             label="Last Nmae"
+//             values={values.lasteName}
+//             name='lastName'
+//             variant="outlined"
+//             onBlur={handleBlur}
+//             onChange={handleChange} />
+//           {errors.lasteName && <small>{errors.lasteName}</small>}
+
+//         </Box>
+//         <Box sx={{ margin: '30px', display: 'flex', flexDirection: 'column' }}>
+//           <TextField
+//             id="outlined-basic"
+//             label="Email"
+//             values={values.email}
+//             name='email'
+//             variant="outlined"
+//             onBlur={handleBlur}
+//             onChange={handleChange} />
+//           {errors.email && <small>{errors.email}</small>}
+
+//         </Box>
+//         <Box sx={{ margin: '30px', display: 'flex', flexDirection: 'column' }}>
+//           <TextField
+//             id="outlined-basic"
+//             label="Password"
+//             values={values.password}
+//             name='password'
+//             variant="outlined"
+//             onBlur={handleBlur}
+//             onChange={handleChange} />
+//           {errors.password && <small>{errors.password}</small>}
+
+//         </Box>
+//         <Box sx={{ margin: '30px', display: 'flex', flexDirection: 'column' }}>
+//           <TextField
+//             id="outlined-basic"
+//             label="ConfirmPassword"
+//             values={values.confirmPassword}
+//             name='confirm'
+//             variant="outlined"
+//             onBlur={handleBlur}
+//             onChange={handleChange} />
+//           {errors.confirmPassword && <small>{errors.confirmPassword}</small>}
+
+//         </Box>
+//         <Box sx={{ margin: '30px', display: 'flex', flexDirection: 'column' }}>
+//           <Button variant="contained" type='submit'>Text</Button>
+//         </Box>
+
+//       </form >
+//     </Box>
+//   )
+// }
